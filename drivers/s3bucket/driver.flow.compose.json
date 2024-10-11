@@ -1,0 +1,69 @@
+{
+  "actions": [
+    {
+      "id": "uploadFileFromUrl",
+      "title": {
+        "en": "Say"
+      },
+      "titleFormatted": {
+        "en": "Upload file from URL [[sourceUrl]] to S3 bucket with key [[objectKey]] and make it [[isPublic]]"
+      },
+      "args": [
+        {
+          "type": "text",
+          "name": "sourceUrl",
+          "title": {
+            "en": "Source URL"
+          },
+          "placeholder": {
+            "en": "http://192.168.0.5:8000/snapshot.jpg"
+          }
+        },
+        {
+          "type": "text",
+          "name": "objectKey",
+          "title": {
+            "en": "Object Key"
+          }
+        },
+        {
+          "type": "checkbox",
+          "name": "isPublic",
+          "title": {
+            "en": "Publicly Accessible"
+          }
+        }
+      ],
+      "tokens": [
+        {
+          "name": "region",
+          "type": "string",
+          "title": {
+            "en": "Region"
+          }
+        },
+        {
+          "name": "objectKey",
+          "type": "string",
+          "title": {
+            "en": "Object Key"
+          }
+        },
+        {
+          "name": "s3Bucket",
+          "type": "string",
+          "title": {
+            "en": "S3 Bucket"
+          }
+        },
+        {
+          "name": "s3Endpoint",
+          "type": "string",
+          "title": {
+            "en": "S3 Endpoint"
+          }
+        }
+      ]
+    }
+  ]
+}

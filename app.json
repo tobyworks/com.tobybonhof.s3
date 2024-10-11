@@ -1,0 +1,179 @@
+{
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.tobybonhof.s3",
+  "version": "1.0.1",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "S3 Buckets"
+  },
+  "description": {
+    "en": "Upload files to S3 Buckets, like AWS or Wasabi"
+  },
+  "category": [
+    "internet"
+  ],
+  "permissions": [],
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png",
+    "xlarge": "/assets/images/xlarge.png"
+  },
+  "author": {
+    "name": "Toby Bonhof"
+  },
+  "brandColor": "#FD840F",
+  "flow": {
+    "actions": [
+      {
+        "id": "uploadFileFromUrl",
+        "title": {
+          "en": "Say"
+        },
+        "titleFormatted": {
+          "en": "Upload file from URL [[sourceUrl]] to S3 bucket with key [[objectKey]] and make it [[isPublic]]"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=s3bucket"
+          },
+          {
+            "type": "text",
+            "name": "sourceUrl",
+            "title": {
+              "en": "Source URL"
+            },
+            "placeholder": {
+              "en": "http://192.168.0.5:8000/snapshot.jpg"
+            }
+          },
+          {
+            "type": "text",
+            "name": "objectKey",
+            "title": {
+              "en": "Object Key"
+            }
+          },
+          {
+            "type": "checkbox",
+            "name": "isPublic",
+            "title": {
+              "en": "Publicly Accessible"
+            }
+          }
+        ],
+        "tokens": [
+          {
+            "name": "region",
+            "type": "string",
+            "title": {
+              "en": "Region"
+            }
+          },
+          {
+            "name": "objectKey",
+            "type": "string",
+            "title": {
+              "en": "Object Key"
+            }
+          },
+          {
+            "name": "s3Bucket",
+            "type": "string",
+            "title": {
+              "en": "S3 Bucket"
+            }
+          },
+          {
+            "name": "s3Endpoint",
+            "type": "string",
+            "title": {
+              "en": "S3 Endpoint"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "S3 Bucket"
+      },
+      "class": "other",
+      "capabilities": [],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [],
+      "images": {
+        "small": "/drivers/s3bucket/assets/images/small.png",
+        "large": "/drivers/s3bucket/assets/images/large.png",
+        "xlarge": "/drivers/s3bucket/assets/images/xlarge.png"
+      },
+      "pair": [
+        {
+          "id": "new"
+        }
+      ],
+      "id": "s3bucket",
+      "settings": [
+        {
+          "type": "text",
+          "label": {
+            "en": "S3 Endpoint"
+          },
+          "id": "s3Endpoint",
+          "placeholder": {
+            "en": "https://s3.amazonaws.com"
+          }
+        },
+        {
+          "type": "text",
+          "label": {
+            "en": "S3 Bucket Name"
+          },
+          "id": "s3Bucket",
+          "placeholder": {
+            "en": "my-bucket"
+          }
+        },
+        {
+          "type": "text",
+          "label": {
+            "en": "Region"
+          },
+          "id": "region",
+          "placeholder": {
+            "en": "eu-central-1"
+          }
+        },
+        {
+          "type": "text",
+          "label": {
+            "en": "Access Key ID"
+          },
+          "id": "accessKeyId",
+          "placeholder": {
+            "en": "AKIAIOSFODNN7EXAMPLE"
+          }
+        },
+        {
+          "type": "text",
+          "label": {
+            "en": "Access Key Secret"
+          },
+          "id": "accessKeySecret",
+          "placeholder": {
+            "en": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+          }
+        }
+      ]
+    }
+  ]
+}

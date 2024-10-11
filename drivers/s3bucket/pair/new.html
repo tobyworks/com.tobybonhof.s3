@@ -1,0 +1,74 @@
+<html>
+<form class="homey-form" id="s3-form">
+    <fieldset class="homey-form-fieldset">
+        <legend class="homey-form-legend">S3 Configuration</legend>
+
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="s3-endpoint">S3 Endpoint</label>
+            <input class="homey-form-input" id="s3-endpoint" type="text" placeholder="e.g., https://s3.amazonaws.com" value="" />
+        </div>
+
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="s3-bucket">S3 Bucket</label>
+            <input class="homey-form-input" id="s3-bucket" type="text" placeholder="Bucket Name" value="" />
+        </div>
+
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="region">Region</label>
+            <input class="homey-form-input" id="region" type="text" placeholder="e.g., us-east-1" value="" />
+        </div>
+
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="access-key-id">Access Key ID</label>
+            <input class="homey-form-input" id="access-key-id" type="text" placeholder="Access Key ID" />
+        </div>
+
+        <div class="homey-form-group">
+            <label class="homey-form-label" for="access-key-secret">Access Secret</label>
+            <input class="homey-form-input" id="access-key-secret" type="password" placeholder="Access Key Secret" />
+        </div>
+
+        <div class="homey-form-group">
+            <button class="homey-form-button" type="submit">Save</button>
+        </div>
+
+    </fieldset>
+</form>
+
+<script type="application/javascript">
+  document.getElementById("s3-form")
+    .addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent default form submission
+
+      // Get the form values
+      const s3Endpoint = document.getElementById("s3-endpoint").value;
+      const s3Bucket = document.getElementById("s3-bucket").value;
+      const region = document.getElementById("region").value;
+      const accessKeyId = document.getElementById("access-key-id").value;
+      const accessKeySecret = document.getElementById("access-key-secret").value;
+
+      // Example: Passing form values to create the device
+      Homey.createDevice({
+        name: "S3 Storage", // Device name shown to the user
+        data: {
+          id: `${s3Bucket}-${region}-${s3Endpoint}`, // Unique ID for the device
+        },
+        settings: {
+          s3Endpoint: s3Endpoint,
+          s3Bucket: s3Bucket,
+          region: region,
+          accessKeyId: accessKeyId,
+          accessKeySecret: accessKeySecret,
+        },
+      })
+        .then(function(result) {
+          console.log("Device created successfully:", result);
+          Homey.done();
+        })
+        .catch(function(error) {
+          console.error("Error creating device:", error);
+          Homey.alert(error);
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,52 @@
+[
+  {
+    "type": "text",
+    "label": {
+      "en": "S3 Endpoint"
+    },
+    "id": "s3Endpoint",
+    "placeholder": {
+      "en": "https://s3.amazonaws.com"
+    }
+  },
+  {
+    "type": "text",
+    "label": {
+      "en": "S3 Bucket Name"
+    },
+    "id": "s3Bucket",
+    "placeholder": {
+      "en": "my-bucket"
+    }
+  },
+  {
+    "type": "text",
+    "label": {
+      "en": "Region"
+    },
+    "id": "region",
+    "placeholder": {
+      "en": "eu-central-1"
+    }
+  },
+  {
+    "type": "text",
+    "label": {
+      "en": "Access Key ID"
+    },
+    "id": "accessKeyId",
+    "placeholder": {
+      "en": "AKIAIOSFODNN7EXAMPLE"
+    }
+  },
+  {
+    "type": "text",
+    "label": {
+      "en": "Access Key Secret"
+    },
+    "id": "accessKeySecret",
+    "placeholder": {
+      "en": "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+    }
+  }
+]
