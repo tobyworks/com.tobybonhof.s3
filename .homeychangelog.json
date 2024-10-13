@@ -4,5 +4,8 @@
   },
   "1.0.1": {
     "en": "textual changes"
+  },
+  "1.1.0": {
+    "en": "Added Image Token Flows"
   }
 }
