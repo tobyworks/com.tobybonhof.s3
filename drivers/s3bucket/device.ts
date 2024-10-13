@@ -1,8 +1,9 @@
 'use strict';
 
-import Homey from 'homey';
+import Homey, { FlowCardAction, Image } from 'homey';
 import S3BucketDriver from './driver';
-import UploadFileFromUrlTokens from './dto/UploadFileFromUrlTokens';
+import UploadTokens from './dto/UploadTokens';
+import { pipeline, Readable } from 'stream';
 
 export default class S3BucketDevice extends Homey.Device {
 
@@ -18,7 +19,7 @@ export default class S3BucketDevice extends Homey.Device {
   async onInit() {
     this.log('S3BucketDevice has been initialized');
     const uploadFileAction = this.homey.flow.getActionCard('uploadFileFromUrl');
-    uploadFileAction.registerRunListener(async (args, state): Promise<UploadFileFromUrlTokens> => {
+    uploadFileAction.registerRunListener(async (args, state): Promise<UploadTokens> => {
       this.updateSettings(this.getSettings());
       const {
         sourceUrl,
@@ -28,13 +29,30 @@ export default class S3BucketDevice extends Homey.Device {
       const driver = await this.driver as S3BucketDriver;
       return this.onUploadFileFromUrl(driver, sourceUrl, objectKey, isPublic);
     });
+    const uploadImageAction: FlowCardAction = this.homey.flow.getActionCard('uploadImage');
+    uploadImageAction.registerRunListener(async (args, state): Promise<UploadTokens> => {
+      this.updateSettings(this.getSettings());
+      const {
+        objectKey,
+        isPublic,
+      } = args;
+      const driver = await this.driver as S3BucketDriver;
+      const image = args.droptoken as Image;
+      console.log(image);
+      const stream = await image.getStream();
+      return this.onUpload(driver, stream, objectKey, isPublic);
+    });
   }
 
-  async onUploadFileFromUrl(driver: S3BucketDriver, sourceUrl: string, objectKey: string, isPublic: boolean): Promise<UploadFileFromUrlTokens> {
+  async onUploadFileFromUrl(driver: S3BucketDriver, sourceUrl: string, objectKey: string, isPublic: boolean): Promise<UploadTokens> {
     const buffer = await driver.downloadFileAsBuffer(
       sourceUrl,
     );
-    await driver.uploadBufferToS3(
+    return this.onUpload(driver, buffer, objectKey, isPublic);
+  }
+
+  async onUpload(driver: S3BucketDriver, data: Buffer | NodeJS.ReadableStream, objectKey: string, isPublic: boolean): Promise<UploadTokens> {
+    await driver.uploadToS3(
       this.s3Endpoint,
       this.region,
       this.accessKeyId,
@@ -42,9 +60,9 @@ export default class S3BucketDevice extends Homey.Device {
       this.s3Bucket,
       objectKey,
       isPublic,
-      buffer,
+      data,
     );
-    const tokens = new UploadFileFromUrlTokens(
+    const tokens = new UploadTokens(
       this.s3Endpoint,
       this.s3Bucket,
       this.region,

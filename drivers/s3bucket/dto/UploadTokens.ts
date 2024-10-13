@@ -1,6 +1,6 @@
 'use strict';
 
-export default class UploadFileFromUrlTokens {
+export default class UploadTokens {
 
   s3Endpoint: string;
   s3Bucket: string;
