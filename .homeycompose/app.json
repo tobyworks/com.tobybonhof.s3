@@ -24,5 +24,6 @@
   "author": {
     "name": "Toby Bonhof"
   },
-  "brandColor": "#FD840F"
+  "brandColor": "#FD840F",
+  "source": "https://github.com/tobyworks/com.tobybonhof.s3"
 }
